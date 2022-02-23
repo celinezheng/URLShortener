@@ -51,9 +51,12 @@ const courses=[
     {id:2, name:'course2'},
     {id:3, name:'course3'}
 ];
+
+
 //response when user access root
 app.get("/", (req,res)=>{
     //redirect
+    
     res.send('hi');
 });
 app.get('/about', (req,res)=>{

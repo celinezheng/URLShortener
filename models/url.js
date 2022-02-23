@@ -10,6 +10,10 @@ const URLSchema = new mongoose.Schema({
     date: {
         type: String,
         default: Date.now
+    },
+    expired_date:{
+        type: String,
+        default: Date.now
     }
 })
 
