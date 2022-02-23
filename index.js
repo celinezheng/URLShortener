@@ -27,6 +27,7 @@ app.use('/api/url', require('./routes/url'))
 
 //Listen for incoming requests
 const PORT = process.env.PORT || 5000
+console.log(process.env.PORT)
 app.listen(PORT, console.log(`server started, listening PORT ${PORT}`))
 
 

@@ -13,8 +13,9 @@ const Url = require('../models/Url')
 // @description     Create short URL
 
 // The API base Url endpoint
-const baseUrl = 'http:localhost:5000'
-
+const production  = 'https://dcard-url-shortener.herokuapp.com/';
+const development = 'http:localhost:5000';
+const baseUrl = (process.env.NODE_ENV ? production : development);
 router.post('/shorten', async (req, res) => {
     const {
         longUrl
