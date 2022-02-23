@@ -15,8 +15,17 @@ router.get('/:code', async (req, res) => {
             urlCode: req.params.code
         })
         if (url) {
-            // when valid we perform a redirect
-            return res.redirect(url.longUrl)
+            var now = new Date();
+            var expired_date = new Date(url.expired_date);
+            if(now.getTime() < expired_date.getTime())
+            {
+                // when valid we perform a redirect
+                return res.redirect(url.longUrl)
+            }
+            else
+            {
+                return res.status(404).json('url expired');
+            }
         } else {
             console.log('none');
             // else return a not found 404 status

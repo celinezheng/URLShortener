@@ -14,8 +14,9 @@ const Url = require('../models/url')
 
 // The API base Url endpoint
 const production  = 'https://dcard-url-shortener.herokuapp.com/';
-const development = 'http:localhost:5000';
+const development = 'http://localhost:5000';
 const baseUrl = (process.env.NODE_ENV ? production : development);
+
 router.post('/shorten', async (req, res) => {
     // destructure the longUrl from req.body.longUrl
     const longUrl= req.body.longUrl; 
@@ -23,14 +24,14 @@ router.post('/shorten', async (req, res) => {
 
     // check base url if valid using the validUrl.isUri method
     if (!validUrl.isUri(baseUrl)) {
+
         return res.status(401).json('Invalid base URL')
     }
 
     // if valid, we create the url code
-    const urlCode = shortid.generate()
-    
+    const urlCode = shortid.generate();
     // check long url if valid using the validUrl.isUri method
-    if (typeof validUrl.isUri(longUrl) !== 'undefined') {
+    if (validUrl.isUri(longUrl)) {
         try {
             /* The findOne() provides a match to only the subset of the documents 
             in the collection that match the query. In this case, before creating the short URL,
@@ -39,8 +40,6 @@ router.post('/shorten', async (req, res) => {
             let url = await Url.findOne({
                 longUrl
             })
-            console.log('new date');
-            console.log(expired_date);
             // url exist and return the respose
             if (url) {
                 res.json(url)
@@ -56,7 +55,6 @@ router.post('/shorten', async (req, res) => {
                     date: new Date(),
                     expired_date: new Date(expired_date)
                 });
-                console.log(url);
                 await url.save()
                 res.json(url)
             }
@@ -69,6 +67,9 @@ router.post('/shorten', async (req, res) => {
     } else {
         res.status(401).json('Invalid longUrl')
     }
-})
+});
+
+
+
 
 module.exports = router
