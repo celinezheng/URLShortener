@@ -7,7 +7,8 @@ const DB_URI='mongodb+srv://shulingcheng:test1234@dcardhw.w3xyu.mongodb.net/dcar
 // establishing a database connection
 mongoose.connect(DB_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 1000,
 })
 
 const connection = mongoose.connection
